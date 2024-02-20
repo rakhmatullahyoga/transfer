@@ -7,6 +7,27 @@ This service act as a money transfer service that serve user transfer/disburseme
 - Docker (optional)
 - [golang-migrate](https://github.com/golang-migrate/migrate)
 
+## Project structure
+
+```
+root
+|- bin # binary files, contains application binary and additional tools such as `migrate`
+|- db # db related scripts
+|  |- migrations # migration sql files
+|     |- x.down.sql
+|     |- x.up.sql
+|- transfer # go package for transfer API core business process: account inquiry, transfer process, and callback endpoint
+|  |- handler # http and other delivery layer handler
+|     |- xxx.go
+|  |- repository # data repository layer functions, each data source have separate files
+|     |- xxx.go
+|  |- usecase # usecase layer functions
+|     |- xxx.go
+|  |- domain.go # domain's model and architecture layer definitions
+|- docker-compose.yml # system dependency
+|- main.go # application entrypoint
+```
+
 ## Setup
 1. Clone this repository
 ```bash
@@ -33,3 +54,15 @@ make compile
 ```bash
 make run
 ```
+
+## Mock API
+This service used [mockAPI](https://mockapi.io) to simulate external dependency to bank service. We use `accounts` and `transfers` as resources in the mockAPI.
+
+### Account validation
+TBD
+
+### Transfer money
+TBD
+
+## Test the application
+You can test the application by making http request to transfer service as described in the attached [Postman collection](Transfer-API.postman_collection.json).
